@@ -141,7 +141,7 @@ import { RouterLink } from 'vue-router'
   aspect-ratio: 1;
   left: 8%;
   top: 10%;
-  border: 1px solid color-mix(in srgb, var(--paper) 55%, transparent);
+  border: 1px solid color-mix(in srgb, var(--glass) 55%, transparent);
   border-radius: 50%;
   animation: spin 18s linear infinite;
 }
@@ -151,7 +151,7 @@ import { RouterLink } from 'vue-router'
   position: absolute;
   width: 0.7rem;
   height: 0.7rem;
-  background: var(--paper);
+  background: var(--glass);
   border-radius: 50%;
   top: 12%;
   left: 50%;
@@ -162,8 +162,8 @@ import { RouterLink } from 'vue-router'
   position: absolute;
   border-radius: 10px;
   backdrop-filter: blur(6px);
-  background: color-mix(in srgb, var(--paper) 55%, transparent);
-  border: 1px solid color-mix(in srgb, var(--paper) 40%, transparent);
+  background: color-mix(in srgb, var(--glass) 55%, transparent);
+  border: 1px solid color-mix(in srgb, var(--glass) 40%, transparent);
 }
 
 .shard-a {

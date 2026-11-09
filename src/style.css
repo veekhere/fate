@@ -1,10 +1,27 @@
-:root {
+:root,
+html[data-theme='light'] {
   --ink: #14222b;
   --muted: #4d5f6b;
   --paper: #eef4f6;
   --paper-deep: #dfe9ee;
+  --glass: #f7fbfb;
   --accent: #2f9e8f;
   --accent-deep: #1f6f66;
+  color-scheme: light;
+}
+
+html[data-theme='dark'] {
+  --ink: #e7f1f4;
+  --muted: #a9bcc6;
+  --paper: #10181d;
+  --paper-deep: #0b1216;
+  --glass: #f7fbfb;
+  --accent: #3dbead;
+  --accent-deep: #8ee0d4;
+  color-scheme: dark;
+}
+
+:root {
   --display: 'Bricolage Grotesque', 'Segoe UI', sans-serif;
   --sans: 'Manrope', 'Segoe UI', sans-serif;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
@@ -34,6 +51,8 @@ body {
 
 body {
   min-height: 100svh;
+  background: var(--paper);
+  transition: background-color 0.25s var(--ease), color 0.25s var(--ease);
 }
 
 #app {
