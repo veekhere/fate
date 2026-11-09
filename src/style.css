@@ -1,0 +1,60 @@
+:root {
+  --ink: #14222b;
+  --muted: #4d5f6b;
+  --paper: #eef4f6;
+  --paper-deep: #dfe9ee;
+  --accent: #2f9e8f;
+  --accent-deep: #1f6f66;
+  --display: 'Bricolage Grotesque', 'Segoe UI', sans-serif;
+  --sans: 'Manrope', 'Segoe UI', sans-serif;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  font-family: var(--sans);
+  font-size: 17px;
+  line-height: 1.5;
+  color: var(--muted);
+  background: var(--paper);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  min-height: 100svh;
+}
+
+#app {
+  min-height: 100svh;
+}
+
+a {
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
