@@ -1,13 +1,21 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref, watch } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
+import { useLocale } from '../composables/useLocale'
 import { useTheme } from '../composables/useTheme'
+import type { Locale } from '../i18n/messages'
 import ThemeIcon from './ThemeIcon.vue'
 
 const route = useRoute()
 const open = ref(false)
 const header = ref<HTMLElement | null>(null)
 const { theme, toggleTheme } = useTheme()
+const { locale, t, setLocale, toggleLocale } = useLocale()
+
+const locales: { value: Locale; label: string }[] = [
+  { value: 'ru', label: 'Русский' },
+  { value: 'en', label: 'English' },
+]
 
 const mobileQuery = window.matchMedia('(max-width: 760px)')
 
@@ -50,25 +58,35 @@ onUnmounted(() => {
 
 <template>
   <header ref="header" class="header">
-    <RouterLink class="brand" to="/" aria-label="Nexus home">
+    <RouterLink class="brand" to="/" :aria-label="t.nav.brandHome">
       <span class="brand-mark" aria-hidden="true" />
       <span class="brand-name">Nexus</span>
     </RouterLink>
 
     <div class="desktop-tools">
-      <nav class="nav" aria-label="Main">
+      <nav class="nav" :aria-label="t.nav.label">
         <RouterLink class="nav-link" :class="{ active: route.name === 'home' }" to="/">
-          Home
+          {{ t.nav.home }}
         </RouterLink>
         <RouterLink class="nav-link" :class="{ active: route.name === 'about' }" to="/about">
-          About
+          {{ t.nav.about }}
         </RouterLink>
       </nav>
+      <span class="tools-divider" aria-hidden="true" />
       <button
-        class="icon-btn theme-btn"
+        class="icon-btn lang-btn"
         type="button"
-        :aria-label="theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'"
-        :aria-pressed="theme === 'dark'"
+        :aria-label="t.locale.switchTo"
+        :title="t.locale.switchTo"
+        @click="toggleLocale"
+      >
+        {{ locale.toUpperCase() }}
+      </button>
+      <button
+        class="icon-btn"
+        type="button"
+        :aria-label="theme === 'dark' ? t.theme.toLight : t.theme.toDark"
+        :title="theme === 'dark' ? t.theme.toLight : t.theme.toDark"
         @click="toggleTheme"
       >
         <ThemeIcon :theme="theme" />
@@ -87,25 +105,44 @@ onUnmounted(() => {
         <span />
         <span />
       </span>
-      <span class="sr-only">{{ open ? 'Close menu' : 'Open menu' }}</span>
+      <span class="sr-only">{{ open ? t.nav.closeMenu : t.nav.openMenu }}</span>
     </button>
 
     <div v-show="open" id="site-menu" class="menu">
-      <nav class="menu-nav" aria-label="Mobile">
+      <nav class="menu-nav" :aria-label="t.nav.mobileLabel">
         <RouterLink class="menu-link" :class="{ active: route.name === 'home' }" to="/">
-          Home
+          {{ t.nav.home }}
         </RouterLink>
         <RouterLink class="menu-link" :class="{ active: route.name === 'about' }" to="/about">
-          About
+          {{ t.nav.about }}
         </RouterLink>
       </nav>
 
-      <div class="menu-theme" role="group" aria-label="Theme">
-        <span class="menu-theme-label">Theme</span>
-        <button class="theme-choice" type="button" @click="toggleTheme">
-          <ThemeIcon :theme="theme" />
-          <span>{{ theme === 'dark' ? 'Dark' : 'Light' }}</span>
-        </button>
+      <div class="menu-settings">
+        <div class="menu-row" role="group" :aria-label="t.theme.label">
+          <span class="menu-label">{{ t.theme.label }}</span>
+          <button class="theme-choice" type="button" @click="toggleTheme">
+            <ThemeIcon :theme="theme" />
+            <span>{{ theme === 'dark' ? t.theme.dark : t.theme.light }}</span>
+          </button>
+        </div>
+
+        <div class="menu-row" role="group" :aria-label="t.locale.label">
+          <span class="menu-label">{{ t.locale.label }}</span>
+          <div class="segmented">
+            <button
+              v-for="item in locales"
+              :key="item.value"
+              class="segment"
+              type="button"
+              :lang="item.value"
+              :aria-pressed="locale === item.value"
+              @click="setLocale(item.value)"
+            >
+              {{ item.label }}
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </header>
@@ -155,6 +192,22 @@ onUnmounted(() => {
 .nav {
   display: flex;
   gap: 0.35rem;
+}
+
+.tools-divider {
+  width: 1px;
+  height: 1.25rem;
+  margin: 0 0.35rem;
+  background: color-mix(in srgb, var(--ink) 16%, transparent);
+}
+
+.lang-btn {
+  width: auto;
+  min-width: 2.5rem;
+  padding: 0 0.55rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
 }
 
 .nav-link,
@@ -230,24 +283,35 @@ onUnmounted(() => {
   display: none;
 }
 
+/* Lines share one centre point so the open state forms a symmetric X. */
 .burger-icon {
-  width: 1.05rem;
-  height: 0.8rem;
-  display: grid;
-  align-content: space-between;
+  position: relative;
+  width: 18px;
+  height: 14px;
 }
 
 .burger-icon span {
-  display: block;
-  height: 1.5px;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 100%;
+  height: 2px;
+  margin-top: -1px;
   border-radius: 2px;
   background: currentColor;
-  transform-origin: center;
-  transition: transform 0.2s var(--ease), opacity 0.2s ease;
+  transition: transform 0.22s var(--ease), opacity 0.15s ease;
+}
+
+.burger-icon span:nth-child(1) {
+  transform: translateY(-6px);
+}
+
+.burger-icon span:nth-child(3) {
+  transform: translateY(6px);
 }
 
 .burger-icon[data-open='true'] span:nth-child(1) {
-  transform: translateY(0.32rem) rotate(45deg);
+  transform: rotate(45deg);
 }
 
 .burger-icon[data-open='true'] span:nth-child(2) {
@@ -255,7 +319,7 @@ onUnmounted(() => {
 }
 
 .burger-icon[data-open='true'] span:nth-child(3) {
-  transform: translateY(-0.32rem) rotate(-45deg);
+  transform: rotate(-45deg);
 }
 
 .menu {
@@ -280,17 +344,59 @@ onUnmounted(() => {
   color: var(--ink);
 }
 
-.menu-theme {
+.menu-settings {
+  display: grid;
+  gap: 0.15rem;
+  margin: 0.35rem 0.35rem 0.2rem;
+  padding-top: 0.45rem;
+  border-top: 1px solid color-mix(in srgb, var(--ink) 14%, transparent);
+}
+
+.menu-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 0.75rem;
-  margin: 0.35rem 0.35rem 0.2rem;
-  padding: 0.7rem 0.15rem 0.35rem 0.5rem;
-  border-top: 1px solid color-mix(in srgb, var(--ink) 14%, transparent);
+  min-height: 2.6rem;
+  padding: 0 0.15rem 0 0.5rem;
 }
 
-.menu-theme-label {
+.segmented {
+  display: inline-flex;
+  padding: 3px;
+  border-radius: 9px;
+  background: color-mix(in srgb, var(--ink) 7%, transparent);
+}
+
+.segment {
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.35rem 0.6rem;
+  border-radius: 7px;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.segment:hover {
+  color: var(--ink);
+}
+
+.segment[aria-pressed='true'] {
+  background: var(--paper);
+  color: var(--ink);
+  box-shadow: 0 1px 3px color-mix(in srgb, var(--ink) 18%, transparent);
+}
+
+.segment:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.menu-label {
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.08em;

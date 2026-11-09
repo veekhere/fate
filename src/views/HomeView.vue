@@ -1,24 +1,20 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
+import { useLocale } from '../composables/useLocale'
+
+const { t } = useLocale()
 </script>
 
 <template>
   <section class="hero">
     <div class="hero-copy">
       <p class="brand-signal">Nexus</p>
-      <h1 class="headline">Build calm interfaces that move with purpose.</h1>
-      <p class="lede">
-        A Vue 3 + TypeScript starter with routing, typed views, and a focused visual system.
-      </p>
+      <h1 class="headline">{{ t.home.headline }}</h1>
+      <p class="lede">{{ t.home.lede }}</p>
       <div class="cta-row">
-        <RouterLink class="cta primary" to="/about">Explore the stack</RouterLink>
-        <a
-          class="cta ghost"
-          href="https://vuejs.org/"
-          target="_blank"
-          rel="noreferrer"
-        >
-          Vue docs
+        <RouterLink class="cta primary" to="/about">{{ t.home.explore }}</RouterLink>
+        <a class="cta ghost" href="https://vuejs.org/" target="_blank" rel="noreferrer">
+          {{ t.home.docs }}
         </a>
       </div>
     </div>

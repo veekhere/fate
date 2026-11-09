@@ -9,22 +9,16 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: HomeView,
-      meta: { title: 'Nexus' },
     },
     {
       path: '/about',
       name: 'about',
       component: AboutView,
-      meta: { title: 'About — Nexus' },
     },
   ],
   scrollBehavior() {
     return { top: 0 }
   },
-})
-
-router.afterEach((to) => {
-  document.title = (to.meta.title as string) || 'Nexus'
 })
 
 export default router

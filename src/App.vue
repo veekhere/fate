@@ -1,6 +1,15 @@
 <script setup lang="ts">
-import { RouterView } from 'vue-router'
+import { watchEffect } from 'vue'
+import { RouterView, useRoute } from 'vue-router'
 import AppHeader from './components/AppHeader.vue'
+import { useLocale } from './composables/useLocale'
+
+const route = useRoute()
+const { t } = useLocale()
+
+watchEffect(() => {
+  document.title = route.name === 'about' ? t.value.meta.about : t.value.meta.home
+})
 </script>
 
 <template>

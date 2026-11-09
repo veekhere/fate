@@ -12,6 +12,11 @@
               ? 'dark'
               : 'light'
         document.documentElement.setAttribute('data-theme', theme)
+        var locale = localStorage.getItem('nexus-locale')
+        if (locale !== 'ru' && locale !== 'en') {
+          locale = navigator.language.toLowerCase().indexOf('ru') === 0 ? 'ru' : 'en'
+        }
+        document.documentElement.setAttribute('lang', locale)
       } catch (e) {}
     </script>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />

@@ -1,37 +1,19 @@
 <script setup lang="ts">
-const stack = [
-  {
-    title: 'Vue 3',
-    detail: 'Composition API with <script setup> for concise typed components.',
-  },
-  {
-    title: 'TypeScript',
-    detail: 'Strict typing across views, router meta, and shared modules.',
-  },
-  {
-    title: 'Vue Router',
-    detail: 'Named routes for Home and About with history mode navigation.',
-  },
-  {
-    title: 'Vite',
-    detail: 'Fast HMR and a zero-config path from scaffolding to production build.',
-  },
-] as const
+import { useLocale } from '../composables/useLocale'
+
+const { t } = useLocale()
 </script>
 
 <template>
   <section class="about">
     <header class="intro">
-      <p class="kicker">About</p>
-      <h1>What this starter includes</h1>
-      <p class="summary">
-        Nexus is a small multi-page Vue app meant as a clean base: routing, typed pages,
-        and a visual direction you can extend without fighting defaults.
-      </p>
+      <p class="kicker">{{ t.about.kicker }}</p>
+      <h1>{{ t.about.title }}</h1>
+      <p class="summary">{{ t.about.summary }}</p>
     </header>
 
     <ul class="stack-list">
-      <li v-for="item in stack" :key="item.title" class="stack-item">
+      <li v-for="item in t.about.stack" :key="item.title" class="stack-item">
         <h2>{{ item.title }}</h2>
         <p>{{ item.detail }}</p>
       </li>
