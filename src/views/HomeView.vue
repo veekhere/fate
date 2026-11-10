@@ -20,7 +20,7 @@ const { t } = useLocale()
     </div>
 
     <div class="hero-visual" aria-hidden="true">
-      <div class="plane" />
+      <div class="plane"><div class="plane-card" /></div>
       <div class="orbit" />
       <div class="shard shard-a" />
       <div class="shard shard-b" />
@@ -123,12 +123,18 @@ const { t } = useLocale()
 .plane {
   position: absolute;
   inset: 8% 4% 8% 12%;
+  animation: float 7s ease-in-out infinite;
+}
+
+.plane-card {
+  width: 100%;
+  height: 100%;
   border-radius: 18px;
   background:
     linear-gradient(145deg, color-mix(in srgb, var(--accent) 55%, #ffc2a1), transparent 55%),
     linear-gradient(320deg, #2c211c 0%, #c4532a 48%, #f0b089 100%);
-  box-shadow: 0 24px 50px color-mix(in srgb, var(--ink) 18%, transparent);
-  animation: float 7s ease-in-out infinite;
+  box-shadow: var(--shadow-float);
+  transition: box-shadow 0.25s var(--ease);
 }
 
 .orbit {

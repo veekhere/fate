@@ -7,6 +7,9 @@ html[data-theme='light'] {
   --glass: #f7fbfb;
   --accent: #e25b2a;
   --accent-deep: #b8431c;
+  --shadow-float: 0 24px 50px rgb(20 34 43 / 20%);
+  --shadow-panel: 0 18px 40px rgb(20 34 43 / 16%);
+  --shadow-rest: 0 1px 3px rgb(20 34 43 / 22%);
   color-scheme: light;
 }
 
@@ -18,6 +21,9 @@ html[data-theme='dark'] {
   --glass: #f7fbfb;
   --accent: #ff7a45;
   --accent-deep: #ffb089;
+  --shadow-float: 0 28px 60px rgb(0 0 0 / 64%);
+  --shadow-panel: 0 18px 44px rgb(0 0 0 / 62%);
+  --shadow-rest: 0 1px 2px rgb(0 0 0 / 58%);
   color-scheme: dark;
 }
 

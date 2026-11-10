@@ -335,7 +335,8 @@ onUnmounted(() => {
   border-radius: 14px;
   background: color-mix(in srgb, var(--paper) 94%, white);
   border: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
-  box-shadow: 0 18px 40px color-mix(in srgb, var(--ink) 14%, transparent);
+  box-shadow: var(--shadow-panel);
+  transition: box-shadow 0.25s var(--ease);
 }
 
 .menu-nav {
@@ -392,7 +393,7 @@ onUnmounted(() => {
 .segment[aria-pressed='true'] {
   background: var(--paper);
   color: var(--ink);
-  box-shadow: 0 1px 3px color-mix(in srgb, var(--ink) 18%, transparent);
+  box-shadow: var(--shadow-rest);
 }
 
 .segment:focus-visible {
