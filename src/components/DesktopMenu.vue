@@ -4,11 +4,12 @@ import { RouterLink, useRoute } from 'vue-router'
 import { useLocale } from '../composables/useLocale'
 import { useMenuBar } from '../composables/useMenuBar'
 import { sectionLocation, sections, type SectionId } from '../navigation/catalog'
+import { sortedByLabel } from '../navigation/sortItems'
 
 const props = defineProps<{ section: SectionId }>()
 
 const route = useRoute()
-const { t } = useLocale()
+const { locale, t } = useLocale()
 const menuBar = useMenuBar()
 
 const trigger = ref<HTMLButtonElement | null>(null)
@@ -20,6 +21,7 @@ const panelId = useId()
 const config = computed(() => sections[props.section])
 const labels = computed(() => t.value.sections[props.section])
 const itemLabels = computed(() => labels.value.items as Record<string, string>)
+const items = computed(() => sortedByLabel(config.value.items, itemLabels.value, locale.value))
 const open = computed(() => menuBar.active.value === props.section)
 const current = computed(
   () => route.name === 'section' && route.params.section === props.section,
@@ -197,7 +199,7 @@ onBeforeUnmount(() => {
           {{ labels.menuTitle }}
         </div>
         <RouterLink
-          v-for="item in config.items"
+          v-for="item in items"
           :key="item"
           class="window-item"
           role="menuitemradio"

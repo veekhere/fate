@@ -1,6 +1,6 @@
 import type { RouteLocationRaw } from 'vue-router'
 
-export const equipmentLevels = ['11-8', '8-preferential'] as const
+export const equipmentLevels = ['11', '10', '9', '8', '8-preferential'] as const
 
 export const ratingCategories = [
   'premium-8',

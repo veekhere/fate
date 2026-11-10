@@ -3,18 +3,20 @@ import { computed, useId } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
 import { useLocale } from '../composables/useLocale'
 import { sectionLocation, sections, type SectionId } from '../navigation/catalog'
+import { sortedByLabel } from '../navigation/sortItems'
 
 const props = defineProps<{ section: SectionId; expanded: boolean }>()
 const emit = defineEmits<{ toggle: [] }>()
 
 const route = useRoute()
-const { t } = useLocale()
+const { locale, t } = useLocale()
 const buttonId = useId()
 const panelId = useId()
 
 const config = computed(() => sections[props.section])
 const labels = computed(() => t.value.sections[props.section])
 const itemLabels = computed(() => labels.value.items as Record<string, string>)
+const items = computed(() => sortedByLabel(config.value.items, itemLabels.value, locale.value))
 const current = computed(
   () => route.name === 'section' && route.params.section === props.section,
 )
@@ -50,7 +52,7 @@ const selected = computed(() =>
       <div class="section-inner">
         <p class="section-title">{{ labels.menuTitle }}</p>
         <RouterLink
-          v-for="item in config.items"
+          v-for="item in items"
           :key="item"
           class="section-item"
           :aria-current="selected === item ? 'page' : undefined"
