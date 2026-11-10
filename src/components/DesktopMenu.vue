@@ -20,7 +20,11 @@ const panelId = useId()
 
 const config = computed(() => sections[props.section])
 const labels = computed(() => t.value.sections[props.section])
-const itemLabels = computed(() => labels.value.items as Record<string, string>)
+const itemLabels = computed(() => ({
+  ...(labels.value.outside as Record<string, string>),
+  ...(labels.value.items as Record<string, string>),
+}))
+const outsideItems = computed(() => config.value.outside)
 const items = computed(() => sortedByLabel(config.value.items, itemLabels.value, locale.value))
 const open = computed(() => menuBar.active.value === props.section)
 const current = computed(
@@ -185,7 +189,7 @@ onBeforeUnmount(() => {
         ref="panel"
         class="window"
         role="menu"
-        :aria-labelledby="titleId"
+        :aria-label="labels.title"
         :style="{
           top: `${place.top}px`,
           left: `${place.left}px`,
@@ -195,11 +199,8 @@ onBeforeUnmount(() => {
         @pointerleave="onPanelLeave"
         @keydown="onPanelKeydown"
       >
-        <div :id="titleId" class="window-title" role="presentation">
-          {{ labels.menuTitle }}
-        </div>
         <RouterLink
-          v-for="item in items"
+          v-for="item in outsideItems"
           :key="item"
           class="window-item"
           role="menuitemradio"
@@ -214,6 +215,28 @@ onBeforeUnmount(() => {
           </svg>
           <span>{{ itemLabels[item] }}</span>
         </RouterLink>
+        <div v-if="outsideItems.length" class="window-rule" role="separator" />
+        <div role="group" :aria-labelledby="titleId">
+          <div :id="titleId" class="window-title" role="presentation">
+            {{ labels.menuTitle }}
+          </div>
+          <RouterLink
+            v-for="item in items"
+            :key="item"
+            class="window-item"
+            role="menuitemradio"
+            tabindex="-1"
+            :aria-checked="selected === item"
+            :to="sectionLocation(section, item)"
+            @pointermove="onItemPointerMove"
+            @click="hide()"
+          >
+            <svg class="check" viewBox="0 0 16 16" aria-hidden="true">
+              <path d="M3.5 8.5 6.5 11.5 12.5 4.5" />
+            </svg>
+            <span>{{ itemLabels[item] }}</span>
+          </RouterLink>
+        </div>
       </div>
     </Transition>
   </Teleport>
@@ -284,6 +307,12 @@ onBeforeUnmount(() => {
   border: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
   box-shadow: var(--shadow-panel);
   transform-origin: top left;
+}
+
+.window-rule {
+  height: 1px;
+  margin: 4px 6px;
+  background: color-mix(in srgb, var(--ink) 12%, transparent);
 }
 
 .window-title {

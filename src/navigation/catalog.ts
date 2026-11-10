@@ -1,5 +1,6 @@
 import type { RouteLocationRaw } from 'vue-router'
 
+export const equipmentOutside = ['all'] as const
 export const equipmentLevels = ['11', '10', '9', '8', '8-preferential'] as const
 
 export const ratingCategories = [
@@ -25,8 +26,16 @@ export type EquipmentLevel = (typeof equipmentLevels)[number]
 export type RatingCategory = (typeof ratingCategories)[number]
 
 export const sections = {
-  equipment: { queryKey: 'level', items: equipmentLevels as readonly string[] },
-  rating: { queryKey: 'category', items: ratingCategories as readonly string[] },
+  equipment: {
+    queryKey: 'level',
+    outside: equipmentOutside as readonly string[],
+    items: equipmentLevels as readonly string[],
+  },
+  rating: {
+    queryKey: 'category',
+    outside: [] as readonly string[],
+    items: ratingCategories as readonly string[],
+  },
 }
 
 export type SectionId = keyof typeof sections

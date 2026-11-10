@@ -15,7 +15,11 @@ const panelId = useId()
 
 const config = computed(() => sections[props.section])
 const labels = computed(() => t.value.sections[props.section])
-const itemLabels = computed(() => labels.value.items as Record<string, string>)
+const itemLabels = computed(() => ({
+  ...(labels.value.outside as Record<string, string>),
+  ...(labels.value.items as Record<string, string>),
+}))
+const outsideItems = computed(() => config.value.outside)
 const items = computed(() => sortedByLabel(config.value.items, itemLabels.value, locale.value))
 const current = computed(
   () => route.name === 'section' && route.params.section === props.section,
@@ -50,6 +54,19 @@ const selected = computed(() =>
       :inert="expanded ? undefined : true"
     >
       <div class="section-inner">
+        <RouterLink
+          v-for="item in outsideItems"
+          :key="item"
+          class="section-item"
+          :aria-current="selected === item ? 'page' : undefined"
+          :to="sectionLocation(section, item)"
+        >
+          <svg class="check" viewBox="0 0 16 16" aria-hidden="true">
+            <path d="M3.5 8.5 6.5 11.5 12.5 4.5" />
+          </svg>
+          <span>{{ itemLabels[item] }}</span>
+        </RouterLink>
+        <div v-if="outsideItems.length" class="section-rule" />
         <p class="section-title">{{ labels.menuTitle }}</p>
         <RouterLink
           v-for="item in items"
@@ -133,6 +150,12 @@ const selected = computed(() =>
   overflow: hidden;
   margin-left: 0.85rem;
   border-left: 2px solid color-mix(in srgb, var(--accent) 35%, transparent);
+}
+
+.section-rule {
+  height: 1px;
+  margin: 0.15rem 0.75rem 0.1rem 0.85rem;
+  background: color-mix(in srgb, var(--ink) 12%, transparent);
 }
 
 .section-title {

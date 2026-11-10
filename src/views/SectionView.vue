@@ -13,14 +13,26 @@ const section = computed<SectionId>(() => {
 })
 const config = computed(() => sections[section.value])
 const labels = computed(() => t.value.sections[section.value])
-const itemLabels = computed(() => labels.value.items as Record<string, string>)
+const itemLabels = computed(
+  () =>
+    ({
+      ...labels.value.outside,
+      ...labels.value.items,
+    }) as Record<string, string>,
+)
 
 const raw = computed(() => {
   const value = route.query[config.value.queryKey]
   return typeof value === 'string' ? value : null
 })
+const known = computed(() => [...config.value.outside, ...config.value.items])
 const item = computed(() =>
-  raw.value !== null && config.value.items.includes(raw.value) ? raw.value : null,
+  raw.value !== null && known.value.includes(raw.value) ? raw.value : null,
+)
+const choiceLabel = computed(() =>
+  item.value !== null && config.value.outside.includes(item.value)
+    ? t.value.stub.selected
+    : labels.value.menuTitle,
 )
 const query = computed(() =>
   raw.value === null ? null : `?${config.value.queryKey}=${raw.value}`,
@@ -34,7 +46,7 @@ const query = computed(() =>
 
     <dl class="card">
       <div class="row">
-        <dt>{{ labels.menuTitle }}</dt>
+        <dt>{{ choiceLabel }}</dt>
         <dd>
           <strong v-if="item" class="value" data-testid="selected-item">
             {{ itemLabels[item] }}

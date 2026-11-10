@@ -27,7 +27,10 @@ const en = {
   sections: {
     equipment: {
       title: 'Equipment',
-      menuTitle: 'Tier',
+      menuTitle: 'By tier',
+      outside: {
+        all: 'All vehicles',
+      },
       items: {
         '11': '11',
         '10': '10',
@@ -39,6 +42,7 @@ const en = {
     rating: {
       title: 'Rating',
       menuTitle: 'Category',
+      outside: {},
       items: {
         'premium-8': 'Tier 8 premium vehicles',
         'premium-9': 'Tier 9 premium vehicles',
@@ -99,7 +103,10 @@ const ru: Messages = {
   sections: {
     equipment: {
       title: 'Оборудование',
-      menuTitle: 'Уровень',
+      menuTitle: 'По уровню',
+      outside: {
+        all: 'Вся техника',
+      },
       items: {
         '11': '11',
         '10': '10',
@@ -111,6 +118,7 @@ const ru: Messages = {
     rating: {
       title: 'Рейтинг',
       menuTitle: 'Категория',
+      outside: {},
       items: {
         'premium-8': 'Премиум техника 8 уровня',
         'premium-9': 'Премиум техника 9 уровня',
