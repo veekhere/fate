@@ -255,7 +255,7 @@ onBeforeUnmount(() => {
   color: var(--muted);
   padding: 0.45rem 0.6rem 0.45rem 0.85rem;
   border-radius: 8px;
-  cursor: default;
+  cursor: pointer;
   transition: color 0.2s ease, background 0.2s ease;
 }
 
@@ -336,7 +336,7 @@ onBeforeUnmount(() => {
   color: var(--ink);
   text-decoration: none;
   outline: none;
-  cursor: default;
+  cursor: pointer;
 }
 
 .window-item:focus {

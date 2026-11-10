@@ -193,6 +193,7 @@ onUnmounted(() => {
   gap: 0.65rem;
   text-decoration: none;
   color: var(--ink);
+  cursor: pointer;
 }
 
 .brand-mark {
@@ -245,6 +246,7 @@ onUnmounted(() => {
   color: var(--muted);
   text-decoration: none;
   border-radius: 8px;
+  cursor: pointer;
 }
 
 .nav-link {

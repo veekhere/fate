@@ -180,6 +180,7 @@ const selected = computed(() =>
   line-height: 1.3;
   color: var(--ink);
   text-decoration: none;
+  cursor: pointer;
 }
 
 .section-item:last-child {

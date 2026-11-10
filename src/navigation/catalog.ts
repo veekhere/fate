@@ -27,7 +27,7 @@ export type RatingCategory = (typeof ratingCategories)[number]
 
 export const sections = {
   equipment: {
-    queryKey: 'level',
+    queryKey: 'tier',
     outside: equipmentOutside as readonly string[],
     items: equipmentLevels as readonly string[],
   },

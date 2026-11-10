@@ -69,6 +69,11 @@ a {
   color: inherit;
 }
 
+button,
+a[href] {
+  cursor: pointer;
+}
+
 img {
   max-width: 100%;
   display: block;

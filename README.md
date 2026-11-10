@@ -12,7 +12,7 @@ Vue 3 + TypeScript app with a home page and two menu sections.
 ## Pages
 
 - `/` — Home
-- `/equipment?level=…` — Equipment stub (tier selected in the «Уровень» submenu)
+- `/equipment?tier=…` — Equipment stub (tier selected in the «По уровню» submenu)
 - `/rating?category=…` — Rating stub (category selected in the «Категория» submenu)
 
 The selected submenu item lives in the query string, so it survives reloads and can be shared.
