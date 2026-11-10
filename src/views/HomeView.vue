@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { RouterLink } from 'vue-router'
 import { useLocale } from '../composables/useLocale'
 
 const { t } = useLocale()
@@ -11,12 +10,6 @@ const { t } = useLocale()
       <p class="brand-signal">Fate</p>
       <h1 class="headline">{{ t.home.headline }}</h1>
       <p class="lede">{{ t.home.lede }}</p>
-      <div class="cta-row">
-        <RouterLink class="cta primary" to="/about">{{ t.home.explore }}</RouterLink>
-        <a class="cta ghost" href="https://vuejs.org/" target="_blank" rel="noreferrer">
-          {{ t.home.docs }}
-        </a>
-      </div>
     </div>
 
     <div class="hero-visual" aria-hidden="true">
@@ -66,52 +59,11 @@ const { t } = useLocale()
 }
 
 .lede {
-  margin: 0 0 1.75rem;
+  margin: 0;
   font-size: 1.05rem;
   line-height: 1.55;
   color: var(--muted);
   max-width: 28rem;
-}
-
-.cta-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-}
-
-.cta {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.75rem 1.2rem;
-  border-radius: 8px;
-  font-weight: 600;
-  font-size: 0.95rem;
-  text-decoration: none;
-  transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
-}
-
-.cta:hover {
-  transform: translateY(-1px);
-}
-
-.cta.primary {
-  background: var(--ink);
-  color: var(--paper);
-}
-
-.cta.primary:hover {
-  background: color-mix(in srgb, var(--ink) 88%, var(--accent));
-}
-
-.cta.ghost {
-  color: var(--ink);
-  border: 1px solid color-mix(in srgb, var(--ink) 18%, transparent);
-  background: color-mix(in srgb, var(--paper) 55%, transparent);
-}
-
-.cta.ghost:hover {
-  border-color: color-mix(in srgb, var(--ink) 35%, transparent);
 }
 
 .hero-visual {

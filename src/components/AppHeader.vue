@@ -2,13 +2,19 @@
 import { onMounted, onUnmounted, ref, watch } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
 import { useLocale } from '../composables/useLocale'
+import { useMenuBar } from '../composables/useMenuBar'
 import { useTheme } from '../composables/useTheme'
 import type { Locale } from '../i18n/messages'
+import { isSectionId, sectionIds, type SectionId } from '../navigation/catalog'
+import DesktopMenu from './DesktopMenu.vue'
+import MobileSection from './MobileSection.vue'
 import ThemeIcon from './ThemeIcon.vue'
 
 const route = useRoute()
 const open = ref(false)
+const expanded = ref<SectionId | null>(null)
 const header = ref<HTMLElement | null>(null)
+const menuBar = useMenuBar()
 const { theme, toggleTheme } = useTheme()
 const { locale, t, setLocale, toggleLocale } = useLocale()
 
@@ -34,12 +40,27 @@ function onPointerDown(event: PointerEvent) {
 
 function onViewportChange() {
   if (!mobileQuery.matches) closeMenu()
+  else menuBar.close()
 }
 
-watch(() => route.fullPath, closeMenu)
+function toggleSection(id: SectionId) {
+  expanded.value = expanded.value === id ? null : id
+}
+
+watch(
+  () => route.fullPath,
+  () => {
+    closeMenu()
+    menuBar.close()
+  },
+)
 
 watch(open, (value) => {
   document.body.style.overflow = value ? 'hidden' : ''
+  if (value) {
+    const section = route.params.section
+    expanded.value = route.name === 'section' && isSectionId(section) ? section : null
+  }
 })
 
 onMounted(() => {
@@ -73,9 +94,7 @@ onUnmounted(() => {
         <RouterLink class="nav-link" :class="{ active: route.name === 'home' }" to="/">
           {{ t.nav.home }}
         </RouterLink>
-        <RouterLink class="nav-link" :class="{ active: route.name === 'about' }" to="/about">
-          {{ t.nav.about }}
-        </RouterLink>
+        <DesktopMenu v-for="id in sectionIds" :key="id" :section="id" />
       </nav>
       <span class="tools-divider" aria-hidden="true" />
       <button
@@ -118,9 +137,13 @@ onUnmounted(() => {
         <RouterLink class="menu-link" :class="{ active: route.name === 'home' }" to="/">
           {{ t.nav.home }}
         </RouterLink>
-        <RouterLink class="menu-link" :class="{ active: route.name === 'about' }" to="/about">
-          {{ t.nav.about }}
-        </RouterLink>
+        <MobileSection
+          v-for="id in sectionIds"
+          :key="id"
+          :section="id"
+          :expanded="expanded === id"
+          @toggle="toggleSection(id)"
+        />
       </nav>
 
       <div class="menu-settings">
@@ -330,7 +353,10 @@ onUnmounted(() => {
   position: absolute;
   top: calc(100% - 0.35rem);
   right: 0;
-  width: min(17.5rem, calc(100vw - 2.5rem));
+  width: min(21rem, calc(100vw - 2.5rem));
+  max-height: calc(100svh - 5.5rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;
   padding: 0.45rem;
   border-radius: 14px;
   background: color-mix(in srgb, var(--paper) 94%, white);
@@ -341,6 +367,7 @@ onUnmounted(() => {
 
 .menu-nav {
   display: grid;
+  gap: 0.1rem;
 }
 
 .menu-link {
