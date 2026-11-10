@@ -8,7 +8,7 @@ const { t } = useLocale()
 <template>
   <section class="hero">
     <div class="hero-copy">
-      <p class="brand-signal">Nexus</p>
+      <p class="brand-signal">Fate</p>
       <h1 class="headline">{{ t.home.headline }}</h1>
       <p class="lede">{{ t.home.lede }}</p>
       <div class="cta-row">
@@ -125,8 +125,8 @@ const { t } = useLocale()
   inset: 8% 4% 8% 12%;
   border-radius: 18px;
   background:
-    linear-gradient(145deg, color-mix(in srgb, var(--accent) 55%, #7dd3c0), transparent 55%),
-    linear-gradient(320deg, #1f3a4d 0%, #2f6f7a 48%, #8fd3c4 100%);
+    linear-gradient(145deg, color-mix(in srgb, var(--accent) 55%, #ffc2a1), transparent 55%),
+    linear-gradient(320deg, #2c211c 0%, #c4532a 48%, #f0b089 100%);
   box-shadow: 0 24px 50px color-mix(in srgb, var(--ink) 18%, transparent);
   animation: float 7s ease-in-out infinite;
 }

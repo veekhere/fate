@@ -5,8 +5,8 @@ html[data-theme='light'] {
   --paper: #eef4f6;
   --paper-deep: #dfe9ee;
   --glass: #f7fbfb;
-  --accent: #2f9e8f;
-  --accent-deep: #1f6f66;
+  --accent: #e25b2a;
+  --accent-deep: #b8431c;
   color-scheme: light;
 }
 
@@ -16,8 +16,8 @@ html[data-theme='dark'] {
   --paper: #10181d;
   --paper-deep: #0b1216;
   --glass: #f7fbfb;
-  --accent: #3dbead;
-  --accent-deep: #8ee0d4;
+  --accent: #ff7a45;
+  --accent-deep: #ffb089;
   color-scheme: dark;
 }
 

@@ -1,12 +1,12 @@
 const en = {
   meta: {
-    home: 'Nexus',
-    about: 'About — Nexus',
+    home: 'Fate',
+    about: 'About — Fate',
   },
   nav: {
     label: 'Main',
     mobileLabel: 'Mobile',
-    brandHome: 'Nexus home',
+    brandHome: 'Fate home',
     home: 'Home',
     about: 'About',
     openMenu: 'Open menu',
@@ -33,7 +33,7 @@ const en = {
     kicker: 'About',
     title: 'What this starter includes',
     summary:
-      'Nexus is a small multi-page Vue app meant as a clean base: routing, typed pages, and a visual direction you can extend without fighting defaults.',
+      'Fate is a small multi-page Vue app meant as a clean base: routing, typed pages, and a visual direction you can extend without fighting defaults.',
     stack: [
       {
         title: 'Vue 3',
@@ -59,13 +59,13 @@ export type Messages = typeof en
 
 const ru: Messages = {
   meta: {
-    home: 'Nexus',
-    about: 'О проекте — Nexus',
+    home: 'Fate',
+    about: 'О проекте — Fate',
   },
   nav: {
     label: 'Основная навигация',
     mobileLabel: 'Мобильная навигация',
-    brandHome: 'Nexus, на главную',
+    brandHome: 'Fate, на главную',
     home: 'Главная',
     about: 'О проекте',
     openMenu: 'Открыть меню',
@@ -92,7 +92,7 @@ const ru: Messages = {
     kicker: 'О проекте',
     title: 'Что входит в стартер',
     summary:
-      'Nexus — небольшое многостраничное приложение на Vue, задуманное как чистая основа: роутинг, типизированные страницы и визуальный стиль, который легко развивать.',
+      'Fate — небольшое многостраничное приложение на Vue, задуманное как чистая основа: роутинг, типизированные страницы и визуальный стиль, который легко развивать.',
     stack: [
       {
         title: 'Vue 3',

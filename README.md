@@ -1,4 +1,4 @@
-# Nexus
+# Fate
 
 Vue 3 + TypeScript starter with Vue Router and two pages.
 

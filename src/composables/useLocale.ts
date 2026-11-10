@@ -1,7 +1,7 @@
 import { computed, ref } from 'vue'
 import { messages, type Locale } from '../i18n/messages'
 
-const STORAGE_KEY = 'nexus-locale'
+const STORAGE_KEY = 'fate-locale'
 const locale = ref<Locale>('en')
 let ready = false
 
@@ -10,7 +10,7 @@ function isLocale(value: unknown): value is Locale {
 }
 
 function readLocale(): Locale {
-  const stored = localStorage.getItem(STORAGE_KEY)
+  const stored = localStorage.getItem(STORAGE_KEY) || localStorage.getItem('nexus-locale')
   if (isLocale(stored)) return stored
 
   return navigator.language.toLowerCase().startsWith('ru') ? 'ru' : 'en'

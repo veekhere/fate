@@ -59,8 +59,13 @@ onUnmounted(() => {
 <template>
   <header ref="header" class="header">
     <RouterLink class="brand" to="/" :aria-label="t.nav.brandHome">
-      <span class="brand-mark" aria-hidden="true" />
-      <span class="brand-name">Nexus</span>
+      <svg class="brand-mark" viewBox="0 0 24 28" aria-hidden="true">
+        <path
+          fill="currentColor"
+          d="M12 1.2 21.2 4.8v8.1c0 6.1-3.9 10.4-9.2 13.1C6.7 23.3 2.8 19 2.8 12.9V4.8L12 1.2z"
+        />
+      </svg>
+      <span class="brand-name">Fate</span>
     </RouterLink>
 
     <div class="desktop-tools">
@@ -168,11 +173,10 @@ onUnmounted(() => {
 }
 
 .brand-mark {
-  width: 0.85rem;
-  height: 0.85rem;
-  background: var(--accent);
-  border-radius: 2px;
-  transform: rotate(12deg);
+  width: 0.95rem;
+  height: 1.12rem;
+  color: var(--accent);
+  display: block;
   animation: mark-in 0.7s var(--ease) both;
 }
 
@@ -429,11 +433,11 @@ onUnmounted(() => {
 @keyframes mark-in {
   from {
     opacity: 0;
-    transform: rotate(12deg) scale(0.6);
+    transform: scale(0.7);
   }
   to {
     opacity: 1;
-    transform: rotate(12deg) scale(1);
+    transform: scale(1);
   }
 }
 

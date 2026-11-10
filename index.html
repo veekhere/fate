@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <script>
       try {
-        var stored = localStorage.getItem('nexus-theme')
+        var stored = localStorage.getItem('fate-theme') || localStorage.getItem('nexus-theme')
         var theme =
           stored === 'light' || stored === 'dark'
             ? stored
@@ -12,7 +12,7 @@
               ? 'dark'
               : 'light'
         document.documentElement.setAttribute('data-theme', theme)
-        var locale = localStorage.getItem('nexus-locale')
+        var locale = localStorage.getItem('fate-locale') || localStorage.getItem('nexus-locale')
         if (locale !== 'ru' && locale !== 'en') {
           locale = navigator.language.toLowerCase().indexOf('ru') === 0 ? 'ru' : 'en'
         }
@@ -21,7 +21,7 @@
     </script>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Nexus</title>
+    <title>Fate</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

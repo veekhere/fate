@@ -2,12 +2,12 @@ import { ref } from 'vue'
 
 export type Theme = 'light' | 'dark'
 
-const STORAGE_KEY = 'nexus-theme'
+const STORAGE_KEY = 'fate-theme'
 const theme = ref<Theme>('light')
 let ready = false
 
 function readTheme(): Theme {
-  const stored = localStorage.getItem(STORAGE_KEY)
+  const stored = localStorage.getItem(STORAGE_KEY) || localStorage.getItem('nexus-theme')
   if (stored === 'light' || stored === 'dark') return stored
 
   const current = document.documentElement.dataset.theme

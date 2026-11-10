@@ -36,7 +36,7 @@ watchEffect(() => {
   inset: 0;
   background:
     radial-gradient(ellipse 70% 50% at 12% -10%, color-mix(in srgb, var(--accent) 28%, transparent), transparent 55%),
-    radial-gradient(ellipse 55% 45% at 95% 10%, color-mix(in srgb, #7eb8c9 35%, transparent), transparent 50%),
+    radial-gradient(ellipse 55% 45% at 95% 10%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 50%),
     linear-gradient(180deg, var(--paper) 0%, var(--paper-deep) 100%);
   z-index: -1;
 }
