@@ -5,5 +5,5 @@ import { defineConfig } from 'vite'
 export default defineConfig({
   plugins: [vue()],
   // Project Pages are served from https://<user>.github.io/<repo>/
-  base: process.env.VITE_BASE || '/nexus/',
+  base: process.env.VITE_BASE || '/fate/',
 })

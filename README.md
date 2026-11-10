@@ -16,7 +16,7 @@ Vue 3 + TypeScript starter with Vue Router and two pages.
 
 ## Live
 
-https://veekhere.github.io/nexus/
+https://veekhere.github.io/fate/
 
 The site is published from the `gh-pages` branch. GitHub Pages serves unknown paths with `404.html`, so `/about` still opens the Vue app.
 
