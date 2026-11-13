@@ -1,18 +1,17 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
-import { useLocale } from '../composables/useLocale'
+import { t } from '../i18n/messages'
 import { isSectionId, sections, type SectionId } from '../navigation/catalog'
 
 const route = useRoute()
-const { t } = useLocale()
 
 const section = computed<SectionId>(() => {
   const value = route.params.section
   return isSectionId(value) ? value : 'equipment'
 })
 const config = computed(() => sections[section.value])
-const labels = computed(() => t.value.sections[section.value])
+const labels = computed(() => t.sections[section.value])
 const itemLabels = computed(
   () =>
     ({
@@ -31,7 +30,7 @@ const item = computed(() =>
 )
 const choiceLabel = computed(() =>
   item.value !== null && config.value.outside.includes(item.value)
-    ? t.value.stub.selected
+    ? t.stub.selected
     : labels.value.menuTitle,
 )
 const query = computed(() =>

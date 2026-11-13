@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, nextTick, onBeforeUnmount, ref, useId, watch } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
-import { useLocale } from '../composables/useLocale'
+import { t } from '../i18n/messages'
 import { useMenuBar } from '../composables/useMenuBar'
 import { sectionLocation, sections, type SectionId } from '../navigation/catalog'
 import { sortedByLabel } from '../navigation/sortItems'
@@ -9,7 +9,6 @@ import { sortedByLabel } from '../navigation/sortItems'
 const props = defineProps<{ section: SectionId }>()
 
 const route = useRoute()
-const { locale, t } = useLocale()
 const menuBar = useMenuBar()
 
 const trigger = ref<HTMLButtonElement | null>(null)
@@ -19,13 +18,13 @@ const titleId = useId()
 const panelId = useId()
 
 const config = computed(() => sections[props.section])
-const labels = computed(() => t.value.sections[props.section])
+const labels = computed(() => t.sections[props.section])
 const itemLabels = computed(() => ({
   ...(labels.value.outside as Record<string, string>),
   ...(labels.value.items as Record<string, string>),
 }))
 const outsideItems = computed(() => config.value.outside)
-const items = computed(() => sortedByLabel(config.value.items, itemLabels.value, locale.value))
+const items = computed(() => sortedByLabel(config.value.items, itemLabels.value))
 const open = computed(() => menuBar.active.value === props.section)
 const current = computed(
   () => route.name === 'section' && route.params.section === props.section,

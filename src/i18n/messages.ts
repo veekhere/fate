@@ -1,82 +1,6 @@
 import type { EquipmentLevel, RatingCategory } from '../navigation/catalog'
 
-const en = {
-  nav: {
-    label: 'Main',
-    mobileLabel: 'Mobile',
-    brandHome: 'Fate home',
-    home: 'Home',
-    openMenu: 'Open menu',
-    closeMenu: 'Close menu',
-  },
-  theme: {
-    label: 'Theme',
-    light: 'Light',
-    dark: 'Dark',
-    toLight: 'Switch to light theme',
-    toDark: 'Switch to dark theme',
-  },
-  locale: {
-    label: 'Language',
-    switchTo: 'Switch language to Russian',
-  },
-  home: {
-    headline: 'Equipment and vehicle ratings in one place.',
-    lede: 'Pick an equipment tier or a rating category from the menu.',
-  },
-  sections: {
-    equipment: {
-      title: 'Equipment',
-      menuTitle: 'By tier',
-      outside: {
-        all: 'All vehicles',
-      },
-      items: {
-        '11': '11',
-        '10': '10',
-        '9': '9',
-        '8': '8',
-        '8-preferential': '8 (preferential)',
-      } satisfies Record<EquipmentLevel, string>,
-    },
-    rating: {
-      title: 'Rating',
-      menuTitle: 'Category',
-      outside: {},
-      items: {
-        'premium-8': 'Tier 8 premium vehicles',
-        'premium-9': 'Tier 9 premium vehicles',
-        'battle-pass': 'Battle Pass shop vehicles',
-        newcomers: 'Vehicles for newcomers',
-        'heavy-10': 'Current Tier 10 heavy tanks',
-        'medium-10': 'Current Tier 10 medium tanks',
-        'td-10': 'Current Tier 10 tank destroyers',
-        training: 'Vehicles for training',
-        'bond-premium': 'Bond shop premium vehicles',
-        'premium-8-income': 'Tier 8 premium earnings',
-        'premium-9-income': 'Tier 9 premium earnings',
-        'global-map-10': 'Tier 10 Global Map vehicles',
-        'bond-10': 'Tier 10 bond shop vehicles',
-        frontline: 'Frontline mode vehicles',
-        onslaught: 'Onslaught shop vehicles',
-        'tier-11': 'Tier 11 vehicles',
-      } satisfies Record<RatingCategory, string>,
-    },
-  },
-  stub: {
-    kicker: 'Placeholder page',
-    selected: 'Selected',
-    nothing: 'Nothing selected',
-    query: 'Address parameter',
-    unknown: 'The address contains an unknown value:',
-    hint: 'The choice is stored in the address bar, so it stays after a reload.',
-    pick: 'Choose an item in the menu above.',
-  },
-}
-
-export type Messages = typeof en
-
-const ru: Messages = {
+export const t = {
   nav: {
     label: 'Основная навигация',
     mobileLabel: 'Мобильная навигация',
@@ -91,10 +15,6 @@ const ru: Messages = {
     dark: 'Тёмная',
     toLight: 'Включить светлую тему',
     toDark: 'Включить тёмную тему',
-  },
-  locale: {
-    label: 'Язык',
-    switchTo: 'Переключить язык на английский',
   },
   home: {
     headline: 'Оборудование и рейтинги техники в одном месте.',
@@ -113,7 +33,7 @@ const ru: Messages = {
         '9': '9',
         '8': '8',
         '8-preferential': '8 (льготный)',
-      },
+      } satisfies Record<EquipmentLevel, string>,
     },
     rating: {
       title: 'Рейтинг',
@@ -136,7 +56,7 @@ const ru: Messages = {
         frontline: 'Техника для режима «Линия Фронта»',
         onslaught: 'Техника магазина режима «Натиск»',
         'tier-11': 'Техника 11 уровня',
-      },
+      } satisfies Record<RatingCategory, string>,
     },
   },
   stub: {
@@ -149,7 +69,3 @@ const ru: Messages = {
     pick: 'Выберите пункт в меню выше.',
   },
 }
-
-export const messages = { en, ru }
-
-export type Locale = keyof typeof messages

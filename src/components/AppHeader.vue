@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref, watch } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
-import { useLocale } from '../composables/useLocale'
+import { t } from '../i18n/messages'
 import { useMenuBar } from '../composables/useMenuBar'
 import { useTheme } from '../composables/useTheme'
-import type { Locale } from '../i18n/messages'
 import { isSectionId, sectionIds, type SectionId } from '../navigation/catalog'
 import DesktopMenu from './DesktopMenu.vue'
 import MobileSection from './MobileSection.vue'
@@ -16,12 +15,6 @@ const expanded = ref<SectionId | null>(null)
 const header = ref<HTMLElement | null>(null)
 const menuBar = useMenuBar()
 const { theme, toggleTheme } = useTheme()
-const { locale, t, setLocale, toggleLocale } = useLocale()
-
-const locales: { value: Locale; label: string }[] = [
-  { value: 'ru', label: 'Русский' },
-  { value: 'en', label: 'English' },
-]
 
 const mobileQuery = window.matchMedia('(max-width: 760px)')
 
@@ -98,15 +91,6 @@ onUnmounted(() => {
       </nav>
       <span class="tools-divider" aria-hidden="true" />
       <button
-        class="icon-btn lang-btn"
-        type="button"
-        :aria-label="t.locale.switchTo"
-        :title="t.locale.switchTo"
-        @click="toggleLocale"
-      >
-        {{ locale.toUpperCase() }}
-      </button>
-      <button
         class="icon-btn"
         type="button"
         :aria-label="theme === 'dark' ? t.theme.toLight : t.theme.toDark"
@@ -153,23 +137,6 @@ onUnmounted(() => {
             <ThemeIcon :theme="theme" />
             <span>{{ theme === 'dark' ? t.theme.dark : t.theme.light }}</span>
           </button>
-        </div>
-
-        <div class="menu-row" role="group" :aria-label="t.locale.label">
-          <span class="menu-label">{{ t.locale.label }}</span>
-          <div class="segmented">
-            <button
-              v-for="item in locales"
-              :key="item.value"
-              class="segment"
-              type="button"
-              :lang="item.value"
-              :aria-pressed="locale === item.value"
-              @click="setLocale(item.value)"
-            >
-              {{ item.label }}
-            </button>
-          </div>
         </div>
       </div>
     </div>
@@ -227,15 +194,6 @@ onUnmounted(() => {
   height: 1.25rem;
   margin: 0 0.35rem;
   background: color-mix(in srgb, var(--ink) 16%, transparent);
-}
-
-.lang-btn {
-  width: auto;
-  min-width: 2.5rem;
-  padding: 0 0.55rem;
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
 }
 
 .nav-link,
@@ -393,41 +351,6 @@ onUnmounted(() => {
   gap: 0.75rem;
   min-height: 2.6rem;
   padding: 0 0.15rem 0 0.5rem;
-}
-
-.segmented {
-  display: inline-flex;
-  padding: 3px;
-  border-radius: 9px;
-  background: color-mix(in srgb, var(--ink) 7%, transparent);
-}
-
-.segment {
-  border: 0;
-  background: transparent;
-  color: var(--muted);
-  font: inherit;
-  font-size: 0.85rem;
-  font-weight: 600;
-  padding: 0.35rem 0.6rem;
-  border-radius: 7px;
-  cursor: pointer;
-  transition: background 0.2s ease, color 0.2s ease;
-}
-
-.segment:hover {
-  color: var(--ink);
-}
-
-.segment[aria-pressed='true'] {
-  background: var(--paper);
-  color: var(--ink);
-  box-shadow: var(--shadow-rest);
-}
-
-.segment:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 1px;
 }
 
 .menu-label {

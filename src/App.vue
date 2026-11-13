@@ -2,17 +2,16 @@
 import { watchEffect } from 'vue'
 import { RouterView, useRoute } from 'vue-router'
 import AppHeader from './components/AppHeader.vue'
-import { useLocale } from './composables/useLocale'
+import { t } from './i18n/messages'
 import { isSectionId } from './navigation/catalog'
 
 const route = useRoute()
-const { t } = useLocale()
 
 watchEffect(() => {
   const section = route.params.section
   document.title =
     route.name === 'section' && isSectionId(section)
-      ? `${t.value.sections[section].title} — Fate`
+      ? `${t.sections[section].title} — Fate`
       : 'Fate'
 })
 </script>

@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import { useLocale } from '../composables/useLocale'
-
-const { t } = useLocale()
+import { t } from '../i18n/messages'
 </script>
 
 <template>
@@ -83,8 +81,8 @@ const { t } = useLocale()
   height: 100%;
   border-radius: 18px;
   background:
-    linear-gradient(145deg, color-mix(in srgb, var(--accent) 55%, #ffc2a1), transparent 55%),
-    linear-gradient(320deg, #2c211c 0%, #c4532a 48%, #f0b089 100%);
+    linear-gradient(145deg, color-mix(in srgb, var(--accent) 55%, #ffc2c6), transparent 55%),
+    linear-gradient(320deg, #2c1c1e 0%, #c42332 48%, #f0a0a8 100%);
   box-shadow: var(--shadow-float);
   transition: box-shadow 0.25s var(--ease);
 }
